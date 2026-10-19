@@ -1,4 +1,3 @@
-using System;
 using Sandevistan.Core.Hardware;
 using Sandevistan.Core.Models;
 
@@ -8,14 +7,17 @@ public sealed class StateEstimator
 {
     public RobotState Estimate(SensorSnapshot snapshot, RobotState previous)
     {
-        if (!SensorSnapshotValidator.IsValid(snapshot))
-            throw new ArgumentException("Sensor snapshot contains invalid values.", nameof(snapshot));
+        ArgumentNullException.ThrowIfNull(snapshot);
+        ArgumentNullException.ThrowIfNull(previous);
+
+        if (!SensorSnapshotValidator.IsValid(snapshot, out var reason))
+            throw new ArgumentException(reason, nameof(snapshot));
 
         var state = new RobotState
         {
             EmergencyStop = previous.EmergencyStop,
             OperatorEnabled = previous.OperatorEnabled,
-            Timestamp = snapshot.TimestampUtc
+            Timestamp = snapshot.Timestamp
         };
 
         foreach (var pair in previous.Joints)
@@ -23,15 +25,14 @@ public sealed class StateEstimator
 
         foreach (var encoder in snapshot.Encoders)
         {
-            if (!state.Joints.ContainsKey(encoder.JointId))
+            if (!state.Joints.TryGetValue(encoder.JointId, out var old))
                 continue;
 
-            var old = state.Joints[encoder.JointId];
             state.Joints[encoder.JointId] = old with
             {
                 Position = encoder.PositionRadians,
                 Velocity = encoder.VelocityRadiansPerSecond,
-                Timestamp = snapshot.TimestampUtc
+                Timestamp = encoder.Timestamp
             };
         }
 
