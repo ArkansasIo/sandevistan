@@ -1,0 +1,14 @@
+{
+  "Name": "Sandevistan",
+  "SimulationOnly": true,
+  "WatchdogTimeoutMilliseconds": 250,
+  "HardwareMode": "Simulation",
+  "JointLimits": [
+    { "JointId": "left-knee", "MinPositionRadians": -1.57, "MaxPositionRadians": 1.57, "MaxVelocityRadiansPerSecond": 2.0, "MaxTorqueNewtonMeters": 10.0 },
+    { "JointId": "right-knee", "MinPositionRadians": -1.57, "MaxPositionRadians": 1.57, "MaxVelocityRadiansPerSecond": 2.0, "MaxTorqueNewtonMeters": 10.0 },
+    { "JointId": "left-hip", "MinPositionRadians": -1.5, "MaxPositionRadians": 1.5, "MaxVelocityRadiansPerSecond": 2.0, "MaxTorqueNewtonMeters": 15.0 },
+    { "JointId": "right-hip", "MinPositionRadians": -1.5, "MaxPositionRadians": 1.5, "MaxVelocityRadiansPerSecond": 2.0, "MaxTorqueNewtonMeters": 15.0 },
+    { "JointId": "left-ankle", "MinPositionRadians": -0.8, "MaxPositionRadians": 0.8, "MaxVelocityRadiansPerSecond": 2.0, "MaxTorqueNewtonMeters": 8.0 },
+    { "JointId": "right-ankle", "MinPositionRadians": -0.8, "MaxPositionRadians": 0.8, "MaxVelocityRadiansPerSecond": 2.0, "MaxTorqueNewtonMeters": 8.0 }
+  ]
+}
