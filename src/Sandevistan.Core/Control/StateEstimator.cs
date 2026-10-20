@@ -3,6 +3,11 @@ using Sandevistan.Core.Models;
 
 namespace Sandevistan.Core.Control;
 
+/// <summary>
+/// Estimates robot joint state from validated sensor observations.
+/// Sensor timestamps are kept as supplied; simulation time dilation does not
+/// modify hardware timestamps.
+/// </summary>
 public sealed class StateEstimator
 {
     public RobotState Estimate(SensorSnapshot snapshot, RobotState previous)
